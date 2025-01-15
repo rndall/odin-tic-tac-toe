@@ -3,14 +3,26 @@ function Gameboard() {
 
 	const getBoard = () => board;
 
-	return { getBoard };
+	const printBoard = () => {
+		let consoleBoard = "";
+		for (let i = 0; i < board.length; i++) {
+			consoleBoard += `${board[i]} `;
+
+			if ((i + 1) % 3 === 0 && i !== board.length - 1) {
+				consoleBoard += "\n";
+			}
+		}
+		console.log(consoleBoard);
+	};
+
+	return { getBoard, printBoard };
 }
 
-function Player(playerName, symbol) {
-	return { playerName, symbol };
+function Player(name, symbol) {
+	return { name, symbol };
 }
 
-function GameController(
+(function GameController(
 	playerOneName = "Player One",
 	playerTwoName = "Player Two",
 ) {
@@ -22,4 +34,12 @@ function GameController(
 	const switchPlayerTurn = () => {
 		activePlayer = activePlayer === players[0] ? players[1] : players[0];
 	};
-}
+	const getActivePlayer = () => activePlayer;
+
+	const printNewRound = () => {
+		board.printBoard();
+		console.log(`${getActivePlayer().name}'s turn.`);
+	};
+
+	printNewRound();
+})();
