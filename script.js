@@ -5,3 +5,7 @@ function Gameboard() {
 
 	return { getBoard };
 }
+
+function Player(playerName, symbol) {
+	return { playerName, symbol };
+}
