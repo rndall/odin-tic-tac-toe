@@ -129,5 +129,17 @@ const DisplayController = (() => {
 		}
 	};
 
+	const handleSquareClick = (e) => {
+		const squareEl = e.target;
+
+		if (squareEl.textContent) return;
+
+		game.playRound(squareEl.dataset.index);
+		updateScreen();
+	};
+	for (const squareEl of boardSquaresEl) {
+		squareEl.addEventListener("click", handleSquareClick);
+	}
+
 	updateScreen();
 })();
