@@ -59,6 +59,9 @@ const GameController = ((
 
 	const players = [Player(playerOneName, "X"), Player(playerTwoName, "O")];
 
+	let winner = null;
+	const getWinner = () => winner;
+
 	let activePlayer = players[0];
 	const switchPlayerTurn = () => {
 		activePlayer = activePlayer === players[0] ? players[1] : players[0];
@@ -81,7 +84,7 @@ const GameController = ((
 	const playRound = (squareIndex) => {
 		board.markSquare(squareIndex, getActivePlayer().symbol);
 
-		const winner = board.checkWinner();
+		winner = board.checkWinner();
 		if (winner) {
 			if (!getActivePlayer().symbol === winner) {
 				switchPlayerTurn();
@@ -104,13 +107,20 @@ const GameController = ((
 
 	printNewRound();
 
-	return { playRound, getActivePlayer, getBoard: board.getBoard };
+	return {
+		playRound,
+		getActivePlayer,
+		getBoard: board.getBoard,
+		getWinner,
+		checkForTie: board.checkForTie,
+	};
 })();
 
 const DisplayController = (() => {
 	const game = GameController;
 	const playerTurnEl = document.querySelector("#turn");
 	const boardSquaresEl = document.querySelectorAll(".board__square");
+	let winner = null;
 
 	const updateScreen = () => {
 		// Clear board
@@ -127,12 +137,22 @@ const DisplayController = (() => {
 		for (let i = 0; i < board.length; i++) {
 			boardSquaresEl[i].textContent = board[i];
 		}
+
+		winner = game.getWinner();
+		if (winner) {
+			playerTurnEl.textContent = `${activePlayer.name} has won!`;
+			return;
+		}
+
+		if (game.checkForTie()) {
+			playerTurnEl.textContent = "It's a tie.";
+		}
 	};
 
 	const handleSquareClick = (e) => {
 		const squareEl = e.target;
 
-		if (squareEl.textContent) return;
+		if (squareEl.textContent || winner) return;
 
 		game.playRound(squareEl.dataset.index);
 		updateScreen();
