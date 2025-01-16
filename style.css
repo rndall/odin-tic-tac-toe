@@ -60,3 +60,40 @@ h6 {
 #__next {
 	isolation: isolate;
 }
+
+/* Styles */
+:root {
+	--main-bg: #fbfff1;
+}
+
+body {
+	min-height: 100vh;
+	text-align: center;
+	font-family: system-ui, sans-serif;
+}
+
+.header {
+	padding: 16px;
+	box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.main {
+	padding: 24px;
+}
+
+.main__title {
+	font-size: 1.875rem;
+}
+
+.board {
+	width: 500px;
+	height: 500px;
+	border: solid black;
+	margin: 32px auto;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.board__cell {
+	border: 2px solid black;
+}
