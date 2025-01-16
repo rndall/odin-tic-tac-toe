@@ -42,7 +42,7 @@ const Gameboard = (() => {
 		return null;
 	};
 
-	const checkForTie = () => !board.filter((cell) => cell === null).length;
+	const checkForTie = () => !board.filter((square) => square === null).length;
 
 	return { getBoard, markSquare, printBoard, checkWinner, checkForTie };
 })();
@@ -110,12 +110,12 @@ const GameController = ((
 const DisplayController = (() => {
 	const game = GameController;
 	const playerTurnEl = document.querySelector("#turn");
-	const boardCellsEl = document.querySelectorAll(".board__cell");
+	const boardSquaresEl = document.querySelectorAll(".board__square");
 
 	const updateScreen = () => {
 		// Clear board
-		for (const cellEl of boardCellsEl) {
-			cellEl.textContent = "";
+		for (const squareEl of boardSquaresEl) {
+			squareEl.textContent = "";
 		}
 
 		const board = game.getBoard();
@@ -125,7 +125,7 @@ const DisplayController = (() => {
 
 		// Display squares
 		for (let i = 0; i < board.length; i++) {
-			boardCellsEl[i].textContent = board[i];
+			boardSquaresEl[i].textContent = board[i];
 		}
 	};
 

@@ -94,7 +94,7 @@ body {
 	grid-template-columns: repeat(3, 1fr);
 }
 
-.board__cell {
+.board__square {
 	border: 2px solid black;
 	display: flex;
 	justify-content: center;
