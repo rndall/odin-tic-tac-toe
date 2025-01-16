@@ -104,5 +104,30 @@ const GameController = ((
 
 	printNewRound();
 
-	return { playRound };
+	return { playRound, getActivePlayer, getBoard: board.getBoard };
+})();
+
+const DisplayController = (() => {
+	const game = GameController;
+	const playerTurnEl = document.querySelector("#turn");
+	const boardCellsEl = document.querySelectorAll(".board__cell");
+
+	const updateScreen = () => {
+		// Clear board
+		for (const cellEl of boardCellsEl) {
+			cellEl.textContent = "";
+		}
+
+		const board = game.getBoard();
+		const activePlayer = game.getActivePlayer();
+
+		playerTurnEl.textContent = `${activePlayer.name}'s turn...`;
+
+		// Display squares
+		for (let i = 0; i < board.length; i++) {
+			boardCellsEl[i].textContent = board[i];
+		}
+	};
+
+	updateScreen();
 })();
