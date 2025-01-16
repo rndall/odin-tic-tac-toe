@@ -96,4 +96,8 @@ body {
 
 .board__cell {
 	border: 2px solid black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 6rem;
 }
