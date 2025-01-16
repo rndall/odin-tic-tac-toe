@@ -1,4 +1,4 @@
-function Gameboard() {
+const Gameboard = (() => {
 	const board = Array(9).fill(null);
 
 	const getBoard = () => board;
@@ -45,7 +45,7 @@ function Gameboard() {
 	const checkForTie = () => !board.filter((cell) => cell === null).length;
 
 	return { getBoard, markSquare, printBoard, checkWinner, checkForTie };
-}
+})();
 
 function Player(name, symbol) {
 	return { name, symbol };
@@ -55,7 +55,7 @@ const GameController = ((
 	playerOneName = "Player One",
 	playerTwoName = "Player Two",
 ) => {
-	const board = Gameboard();
+	const board = Gameboard;
 
 	const players = [Player(playerOneName, "X"), Player(playerTwoName, "O")];
 
