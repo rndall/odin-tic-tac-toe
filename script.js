@@ -12,7 +12,7 @@ function Gameboard() {
 	const printBoard = () => {
 		let consoleBoard = "";
 		for (let i = 0; i < board.length; i++) {
-			consoleBoard += `${board[i]} `;
+			consoleBoard += `${board[i] === null ? "_" : board[i]} `;
 
 			if ((i + 1) % 3 === 0 && i !== board.length - 1) {
 				consoleBoard += "\n";
