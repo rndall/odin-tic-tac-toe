@@ -3,6 +3,12 @@ function Gameboard() {
 
 	const getBoard = () => board;
 
+	const markSquare = (squareIndex, symbol) => {
+		if (board[squareIndex]) return;
+
+		board[squareIndex] = symbol;
+	};
+
 	const printBoard = () => {
 		let consoleBoard = "";
 		for (let i = 0; i < board.length; i++) {
@@ -15,7 +21,7 @@ function Gameboard() {
 		console.log(consoleBoard);
 	};
 
-	return { getBoard, printBoard };
+	return { getBoard, markSquare, printBoard };
 }
 
 function Player(name, symbol) {
