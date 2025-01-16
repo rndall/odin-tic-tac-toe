@@ -21,7 +21,30 @@ function Gameboard() {
 		console.log(consoleBoard);
 	};
 
-	return { getBoard, markSquare, printBoard };
+	const checkWinner = () => {
+		const win = [
+			[0, 1, 2],
+			[3, 4, 5],
+			[6, 7, 8],
+			[0, 3, 6],
+			[1, 4, 7],
+			[2, 5, 8],
+			[0, 4, 8],
+			[2, 4, 6],
+		];
+
+		for (const w of win) {
+			const [a, b, c] = w;
+			if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+				return board[a];
+			}
+		}
+		return null;
+	};
+
+	const checkForTie = () => !board.filter((cell) => cell === null).length;
+
+	return { getBoard, markSquare, printBoard, checkWinner, checkForTie };
 }
 
 function Player(name, symbol) {
@@ -47,8 +70,33 @@ const GameController = ((
 		console.log(`${getActivePlayer().name}'s turn.`);
 	};
 
+	const displayWinner = (playerName) => {
+		if (playerName) {
+			console.log(`${playerName} wins!`);
+		} else {
+			console.log("It's a tie.");
+		}
+	};
+
 	const playRound = (squareIndex) => {
 		board.markSquare(squareIndex, getActivePlayer().symbol);
+
+		const winner = board.checkWinner();
+		if (winner) {
+			if (!getActivePlayer().symbol === winner) {
+				switchPlayerTurn();
+			}
+
+			board.printBoard();
+			displayWinner(getActivePlayer().name);
+			return;
+		}
+
+		if (board.checkForTie()) {
+			board.printBoard();
+			displayWinner();
+			return;
+		}
 
 		switchPlayerTurn();
 		printNewRound();
