@@ -28,10 +28,10 @@ function Player(name, symbol) {
 	return { name, symbol };
 }
 
-(function GameController(
+const GameController = ((
 	playerOneName = "Player One",
 	playerTwoName = "Player Two",
-) {
+) => {
 	const board = Gameboard();
 
 	const players = [Player(playerOneName, "X"), Player(playerTwoName, "O")];
@@ -47,5 +47,14 @@ function Player(name, symbol) {
 		console.log(`${getActivePlayer().name}'s turn.`);
 	};
 
+	const playRound = (squareIndex) => {
+		board.markSquare(squareIndex, getActivePlayer().symbol);
+
+		switchPlayerTurn();
+		printNewRound();
+	};
+
 	printNewRound();
+
+	return { playRound };
 })();
