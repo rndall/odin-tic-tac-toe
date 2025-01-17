@@ -106,3 +106,19 @@ body {
 	align-items: center;
 	font-size: 6rem;
 }
+
+.dialog {
+	margin: auto;
+	max-width: 300px;
+}
+
+.form {
+	display: grid;
+	gap: 16px;
+	margin-top: 20px;
+	justify-items: center;
+}
+
+.dialog::backdrop {
+	background-color: rgba(0, 0, 0, 0.7);
+}
