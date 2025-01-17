@@ -31,17 +31,27 @@
       <dialog class="dialog">
         <h2 class="dialog__title">Change Names</h2>
         <form class="form">
-          <label class="form__label" for="player_1"
+          <label class="form__label"
             >Enter Player 1 (X) name:
+            <input
+              class="form__input"
+              id="player_1"
+              type="text"
+              placeholder="Player One"
+            />
           </label>
-          <input class="form__input" id="player_1" type="text" />
 
-          <label class="form__label" for="player_2"
+          <label class="form__label"
             >Enter Player 2 (O) name:
+            <input
+              class="form__input"
+              id="player_2"
+              type="text"
+              placeholder="Player Two"
+            />
           </label>
-          <input class="form__input" id="player_2" type="text" />
 
-          <button>Start</button>
+          <button class="form__button button">Start</button>
         </form>
       </dialog>
     </main>

@@ -109,7 +109,15 @@ body {
 
 .dialog {
 	margin: auto;
-	max-width: 300px;
+	max-width: 350px;
+	border: none;
+	border-radius: 24px;
+	padding: 30px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+}
+
+.dialog::backdrop {
+	background-color: rgba(0, 0, 0, 0.7);
 }
 
 .form {
@@ -119,6 +127,35 @@ body {
 	justify-items: center;
 }
 
-.dialog::backdrop {
-	background-color: rgba(0, 0, 0, 0.7);
+.form__label {
+	font-size: 1.25rem;
+	font-weight: 500;
+}
+
+.form__input {
+	border: none;
+	border-radius: 8px;
+	padding: 4px 12px;
+	font-size: 1rem;
+	background-color: lightgray;
+}
+
+.form__button {
+	font-size: 1.25rem;
+	font-weight: 600;
+}
+
+.button {
+	background-color: skyblue;
+	border: none;
+	padding: 8px 30px;
+	border-radius: 9999px;
+}
+
+.button:hover {
+	background-color: hsl(197.4deg 71.43% 74.55%);
+}
+
+.button:active {
+	background-color: hsl(197.4deg 71.43% 65.55%);
 }
