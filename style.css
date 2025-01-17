@@ -106,6 +106,7 @@ body {
 	justify-content: center;
 	align-items: center;
 	font-size: 6rem;
+	cursor: pointer;
 }
 
 .dialog {
@@ -159,6 +160,7 @@ body {
 	border: none;
 	padding: 8px 30px;
 	border-radius: 9999px;
+	cursor: pointer;
 }
 
 .button:hover {
