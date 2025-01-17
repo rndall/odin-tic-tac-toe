@@ -87,6 +87,7 @@ body {
 
 .main__title {
 	font-size: 1.875rem;
+	min-height: 45px;
 }
 
 .board {
