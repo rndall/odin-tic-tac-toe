@@ -1,6 +1,11 @@
 const Gameboard = (() => {
 	const board = Array(9).fill(null);
 
+	const resetBoard = () => {
+		for (let i = 0; i < board.length; i++) {
+			board[i] = null;
+		}
+	};
 	const getBoard = () => board;
 
 	const markSquare = (squareIndex, symbol) => {
@@ -44,7 +49,14 @@ const Gameboard = (() => {
 
 	const checkForTie = () => !board.filter((square) => square === null).length;
 
-	return { getBoard, markSquare, printBoard, checkWinner, checkForTie };
+	return {
+		resetBoard,
+		getBoard,
+		markSquare,
+		printBoard,
+		checkWinner,
+		checkForTie,
+	};
 })();
 
 function Player(name, symbol) {
@@ -69,10 +81,16 @@ const GameController = ((
 
 	let winner = null;
 	const getWinner = () => winner;
+	const resetWinner = () => {
+		winner = null;
+	};
 
 	let activePlayer = players[0];
 	const switchPlayerTurn = () => {
 		activePlayer = activePlayer === players[0] ? players[1] : players[0];
+	};
+	const setPlayer1 = () => {
+		activePlayer = players[0];
 	};
 	const getActivePlayer = () => activePlayer;
 
@@ -118,8 +136,11 @@ const GameController = ((
 	return {
 		setPlayerName,
 		playRound,
+		setPlayer1,
 		getActivePlayer,
+		resetBoard: board.resetBoard,
 		getBoard: board.getBoard,
+		resetWinner,
 		getWinner,
 		checkForTie: board.checkForTie,
 	};
@@ -131,6 +152,7 @@ const DisplayController = (() => {
 	const boardSquaresEl = document.querySelectorAll(".board__square");
 	const dialogEl = document.querySelector(".dialog");
 	const form = document.querySelector(".form");
+	const restartBtn = document.querySelector("#restart");
 	let winner = null;
 
 	const updateScreen = () => {
@@ -171,6 +193,14 @@ const DisplayController = (() => {
 	for (const squareEl of boardSquaresEl) {
 		squareEl.addEventListener("click", handleSquareClick);
 	}
+
+	const restartGame = () => {
+		game.resetBoard();
+		game.setPlayer1();
+		game.resetWinner();
+		updateScreen();
+	};
+	restartBtn.addEventListener("click", restartGame);
 
 	dialogEl.showModal();
 	form.addEventListener("submit", (e) => {

@@ -142,21 +142,33 @@ body {
 }
 
 .form__button {
-	font-size: 1.25rem;
-	font-weight: 600;
+	background-color: skyblue;
+}
+
+.form__button:hover {
+	background-color: hsl(197.4deg 71.43% 74.55%);
+}
+
+.form__button:active {
+	background-color: hsl(197.4deg 71.43% 65.55%);
 }
 
 .button {
-	background-color: skyblue;
+	font-size: 1.25rem;
+	font-weight: 600;
 	border: none;
 	padding: 8px 30px;
 	border-radius: 9999px;
 }
 
 .button:hover {
-	background-color: hsl(197.4deg 71.43% 74.55%);
+	background-color: hsl(0deg 0% 90%);
 }
 
 .button:active {
-	background-color: hsl(197.4deg 71.43% 65.55%);
+	background-color: hsl(0deg 0% 80%);
+}
+
+.main__button {
+	border: solid black;
 }
