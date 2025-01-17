@@ -48,7 +48,13 @@ const Gameboard = (() => {
 })();
 
 function Player(name, symbol) {
-	return { name, symbol };
+	let playerName = name;
+	const getName = () => playerName;
+	const setName = (newName) => {
+		playerName = newName;
+	};
+
+	return { getName, setName, symbol };
 }
 
 const GameController = ((
@@ -58,6 +64,8 @@ const GameController = ((
 	const board = Gameboard;
 
 	const players = [Player(playerOneName, "X"), Player(playerTwoName, "O")];
+	const setPlayerName = (number, newName) =>
+		players[number - 1].setName(newName);
 
 	let winner = null;
 	const getWinner = () => winner;
@@ -70,7 +78,7 @@ const GameController = ((
 
 	const printNewRound = () => {
 		board.printBoard();
-		console.log(`${getActivePlayer().name}'s turn.`);
+		console.log(`${getActivePlayer().getName()}'s turn.`);
 	};
 
 	const displayWinner = (playerName) => {
@@ -91,7 +99,7 @@ const GameController = ((
 			}
 
 			board.printBoard();
-			displayWinner(getActivePlayer().name);
+			displayWinner(getActivePlayer().getName());
 			return;
 		}
 
@@ -108,6 +116,7 @@ const GameController = ((
 	printNewRound();
 
 	return {
+		setPlayerName,
 		playRound,
 		getActivePlayer,
 		getBoard: board.getBoard,
@@ -120,6 +129,8 @@ const DisplayController = (() => {
 	const game = GameController;
 	const playerTurnEl = document.querySelector("#turn");
 	const boardSquaresEl = document.querySelectorAll(".board__square");
+	const dialogEl = document.querySelector(".dialog");
+	const form = document.querySelector(".form");
 	let winner = null;
 
 	const updateScreen = () => {
@@ -131,7 +142,7 @@ const DisplayController = (() => {
 		const board = game.getBoard();
 		const activePlayer = game.getActivePlayer();
 
-		playerTurnEl.textContent = `${activePlayer.name}'s turn...`;
+		playerTurnEl.textContent = `${activePlayer.getName()}'s turn (${activePlayer.symbol})`;
 
 		// Display squares
 		for (let i = 0; i < board.length; i++) {
@@ -140,7 +151,7 @@ const DisplayController = (() => {
 
 		winner = game.getWinner();
 		if (winner) {
-			playerTurnEl.textContent = `${activePlayer.name} has won!`;
+			playerTurnEl.textContent = `${activePlayer.getName()} has won!`;
 			return;
 		}
 
@@ -161,5 +172,19 @@ const DisplayController = (() => {
 		squareEl.addEventListener("click", handleSquareClick);
 	}
 
-	updateScreen();
+	dialogEl.showModal();
+	form.addEventListener("submit", (e) => {
+		e.preventDefault();
+
+		const player1Input = document.querySelector("#player_1");
+		const player2Input = document.querySelector("#player_2");
+
+		if (player1Input.value.trim() && player2Input.value.trim()) {
+			game.setPlayerName(1, player1Input.value.trim());
+			game.setPlayerName(2, player2Input.value.trim());
+		}
+
+		dialogEl.close();
+		updateScreen();
+	});
 })();
