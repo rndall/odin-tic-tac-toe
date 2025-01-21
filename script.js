@@ -85,12 +85,14 @@ const GameController = ((
 		winner = null;
 	};
 
+	let isPlayer1Start = true;
 	let activePlayer = players[0];
 	const switchPlayerTurn = () => {
 		activePlayer = activePlayer === players[0] ? players[1] : players[0];
 	};
-	const setPlayer1 = () => {
-		activePlayer = players[0];
+	const setPlayerStart = () => {
+		isPlayer1Start = !isPlayer1Start;
+		activePlayer = isPlayer1Start ? players[0] : players[1];
 	};
 	const getActivePlayer = () => activePlayer;
 
@@ -109,6 +111,7 @@ const GameController = ((
 
 	const playRound = (squareIndex) => {
 		board.markSquare(squareIndex, getActivePlayer().symbol);
+		console.log(isPlayer1Start, activePlayer);
 
 		winner = board.checkWinner();
 		if (winner) {
@@ -136,7 +139,7 @@ const GameController = ((
 	return {
 		setPlayerName,
 		playRound,
-		setPlayer1,
+		setPlayerStart,
 		getActivePlayer,
 		resetBoard: board.resetBoard,
 		getBoard: board.getBoard,
@@ -196,7 +199,7 @@ const DisplayController = (() => {
 
 	const restartGame = () => {
 		game.resetBoard();
-		game.setPlayer1();
+		game.setPlayerStart();
 		game.resetWinner();
 		updateScreen();
 	};
